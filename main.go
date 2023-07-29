@@ -40,14 +40,18 @@ func main() {
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 				"message": "failed to bind body to object",
+				"error":   err,
 			})
+			return
 		}
 
 		err = mg.SendMail(Message)
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 				"message": "failed to send mail via mailgun",
+				"error":   err,
 			})
+			return
 		}
 
 		c.JSON(http.StatusOK, gin.H{
@@ -57,6 +61,7 @@ func main() {
 	err = r.Run(":8080")
 	if err != nil {
 		log.Fatal(fmt.Sprintf("failed to run router on port '8080': %v", err))
+		return
 	}
 
 }
