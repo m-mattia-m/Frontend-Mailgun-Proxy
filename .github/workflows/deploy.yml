@@ -1,7 +1,7 @@
 name: Build and Push Docker Image
 
 on:
-  create:
+  push:
     tags:
       - '^v\d+\.\d+\.\d+(-\w+)?$'
 
