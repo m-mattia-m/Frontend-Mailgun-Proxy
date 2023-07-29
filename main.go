@@ -15,7 +15,10 @@ import (
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal(fmt.Sprintf("Failed to load .env-File: %v", err))
+		_, found := os.LookupEnv("MAILGUN_DOMAIN")
+		if !found {
+			log.Fatal(fmt.Sprintf("Failed to load .env-File: %v \nfailed to get env-var: 'MAILGUN_DOMAIN' to check if env also without .env-file is initialized", err))
+		}
 	}
 
 	mg, err := NewMg()
