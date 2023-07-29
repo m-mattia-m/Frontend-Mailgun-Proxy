@@ -1,16 +1,20 @@
 name: Build and Push Docker Image
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  create:
+    tags:
+      - '^v\d+\.\d+\.\d+(-\w+)?$'
+
+#  push:
+#    branches:
+#      - main
+#  pull_request:
+#    branches:
+#      - main
 
 env:
   IMAGE_NAME: frontend-mailgun-proxy
-  IMAGE_TAG: v0.0.1
+  IMAGE_TAG: ${{ github.ref#refs/tags/ }} # eg. v0.0.1
 
 jobs:
   build-and-publish:
