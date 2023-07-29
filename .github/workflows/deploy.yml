@@ -22,6 +22,6 @@ jobs:
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Add tag to image
-        run: docker tag app ghcr.io/m-mattia-m/$IMAGE_NAME:$IMAGE_TAG
+        run: docker tag $IMAGE_NAME ghcr.io/m-mattia-m/$IMAGE_NAME:$IMAGE_TAG
       - name: Push image to container-registry
         run: docker push ghcr.io/m-mattia-m/$IMAGE_NAME:$IMAGE_TAG
