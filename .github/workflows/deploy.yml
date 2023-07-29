@@ -8,23 +8,15 @@ on:
     branches:
       - main
 
+env:
+  IMAGE_NAME: frontend-mailgun-proxy
+
 jobs:
-  build-and-push:
+  build-and-publish:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Build Docker Image
-        run: docker build --file Dockerfile --tag ${{ secrets.REGISTRY_NAME }}/frontend-mailgun-proxy:latest .
-
-      - name: Log in to GitHub Container Registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-      - name: Push Docker Image to GitHub Container Registry
-        run: docker push ${{ secrets.REGISTRY_NAME }}/frontend-mailgun-proxy:latest
-
-      # Optionaler Schritt zum Aufräumen, um lokal erzeugte Docker-Images zu entfernen
-      - name: Clean up
-        run: docker image rm ${{ secrets.REGISTRY_NAME }}/frontend-mailgun-proxy:latest
+      - uses: actions/checkout@v3
+      - name: Build image
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "v0.0.1"
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
