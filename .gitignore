@@ -24,3 +24,6 @@ go.work
 /.idea/mg-emailing-proxy.iml
 /.env
 
+/.idea/vcs.xml
+/.idea
+/.idea/
