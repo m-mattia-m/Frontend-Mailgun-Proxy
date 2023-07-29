@@ -10,15 +10,14 @@ on:
 
 env:
   IMAGE_NAME: frontend-mailgun-proxy
+  IMAGE_TAG: v0.0.1
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: ls -a
-        run: ls -a
       - name: Build image
-        run: docker build . --file ./.docker/Dockerfile --tag frontend-mailgun-proxy --label "v0.0.1"
+        run: docker build . --file ./.docker/Dockerfile --tag $IMAGE_NAME --label $IMAGE_TAG
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
